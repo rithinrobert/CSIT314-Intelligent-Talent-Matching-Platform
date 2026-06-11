@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "id": "admin-001",
+      "name": "System Administrator",
+      "email": "admin@talentmatch.com",
+      "password": "admin123",
+      "role": "admin",
+      "membership": "Free"
+    }
+  ],
+  "candidateProfiles": [],
+  "employerProfiles": [],
+  "jobs": [
+    {
+      "id": "job-001",
+      "title": "Software Engineer",
+      "company": "TechNova Solutions",
+      "location": "Sydney",
+      "mode": "Hybrid",
+      "level": "Entry Level",
+      "description": "Develop web applications, maintain software features, and work with JavaScript, Python and database systems.",
+      "skills": "javascript python html css software database",
+      "match": 92
+    },
+    {
+      "id": "job-002",
+      "title": "Frontend Developer",
+      "company": "BrightApps",
+      "location": "Sydney",
+      "mode": "Remote",
+      "level": "Entry Level",
+      "description": "Build responsive user interfaces using HTML, CSS, JavaScript and React for customer-facing applications.",
+      "skills": "html css javascript react frontend ui",
+      "match": 89
+    },
+    {
+      "id": "job-003",
+      "title": "Data Analyst",
+      "company": "InsightWorks",
+      "location": "Wollongong",
+      "mode": "On-site",
+      "level": "Entry Level",
+      "description": "Analyse business data, prepare dashboards, write SQL queries and support reporting decisions.",
+      "skills": "python sql data analytics dashboard",
+      "match": 86
+    }
+  ],
+  "applications": []
+}

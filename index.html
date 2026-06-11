@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalentMatch Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">TM</div>
+    <div>
+      <h2>TalentMatch</h2>
+      <p id="portalLabel">Select Portal</p>
+    </div>
+  </div>
+
+  <button onclick="showPage('login')" class="nav-btn active-nav">Login</button>
+  <button onclick="showPage('dashboard')" class="nav-btn candidate-nav">Dashboard</button>
+  <button onclick="showPage('profile')" class="nav-btn candidate-nav">Profile</button>
+  <button onclick="showPage('membership')" class="nav-btn candidate-nav">Membership</button>
+  <button onclick="showPage('search')" class="nav-btn candidate-nav">Search Jobs</button>
+  <button onclick="showPage('applications')" class="nav-btn candidate-nav">My Applications</button>
+  <button onclick="showPage('recommendations')" class="nav-btn candidate-nav">Recommendations</button>
+  <button onclick="showPage('employerDashboard')" class="nav-btn employer-nav">Employer Dashboard</button>
+  <button onclick="showPage('employerProfile')" class="nav-btn employer-nav">Employer Profile</button>
+  <button onclick="showPage('postJob')" class="nav-btn employer-nav">Post Job</button>
+  <button onclick="showPage('postedJobs')" class="nav-btn employer-nav">Posted Jobs</button>
+  <button onclick="showPage('candidateSearch')" class="nav-btn employer-nav">Search Candidates</button>
+  <button onclick="showPage('candidateRecommendations')" class="nav-btn employer-nav">Recommended Candidates</button>
+  <button onclick="showPage('adminDashboard')" class="nav-btn admin-nav">Admin Dashboard</button>
+  <button onclick="showPage('manageUsers')" class="nav-btn admin-nav">Manage Users</button>
+  <button onclick="showPage('manageJobs')" class="nav-btn admin-nav">Manage Jobs</button>
+  <button onclick="logoutUser()" class="nav-btn logout-btn">Logout</button>
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+  <div>
+    <h1>Intelligent Talent Matching Platform</h1>
+    <p>Smart job recommendations based on candidate profile and preferences</p>
+  </div>
+  <div class="user-pill" id="dashName">Guest User</div>
+</header>
+
+<section id="login" class="page active">
+  <div class="auth-layout">
+    <div class="hero-card">
+      <span class="badge">Smart Recruitment System</span>
+      <h2>Find jobs that match your skills, location and working preference.</h2>
+      <p>
+        TalentMatch supports candidate profile enhancement, membership-based recommendations,
+        keyword search, filters and fuzzy search for a realistic recruitment platform experience.
+      </p>
+    </div>
+
+    <div class="form-card">
+      <h2>Login / Register</h2>
+      <p class="muted">Create an account first, then login using the same email and password.</p>
+
+      <label>Full Name</label>
+      <input id="authName" type="text" placeholder="Enter full name">
+
+      <label>Email Address</label>
+      <input id="authEmail" type="email" placeholder="Enter email address">
+
+      <label>Select Account Type</label>
+      <select id="authRole">
+        <option value="candidate">Candidate</option>
+        <option value="employer">Employer</option>
+        <option value="admin">Administrator</option>
+      </select>
+
+      <label>Password</label>
+      <input id="authPassword" type="password" placeholder="Enter password">
+
+      <div class="button-row">
+        <button class="primary" onclick="loginUser()">Login</button>
+        <button class="secondary" onclick="createAccount()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dashboard" class="page">
+  <div class="section-heading">
+    <h2>Candidate Dashboard</h2>
+    <p>Dashboard values update based on the candidate profile and membership status.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p>Profile Completion</p>
+      <h3 id="dashProfileCompletion">0%</h3>
+      <span>Based on completed profile fields</span>
+    </div>
+
+    <div class="stat-card">
+      <p>Recommended Jobs</p>
+      <h3 id="dashRecommendedJobs">10</h3>
+      <span>Free users see Top 10 only</span>
+    </div>
+
+    <div class="stat-card">
+      <p>Membership</p>
+      <h3 id="dashMembership">Free</h3>
+      <span id="membershipNote">Upgrade for unlimited results</span>
+    </div>
+
+    <div class="stat-card">
+      <p>Preferred Mode</p>
+      <h3 id="dashWorkMode">Not selected</h3>
+      <span>Used for matching</span>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Candidate Profile Summary</h3>
+    <div class="activity-item"><strong>Contact Information:</strong> <span id="dashContact">Not added</span></div>
+    <div class="activity-item"><strong>Education:</strong> <span id="dashEducation">Not added</span></div>
+    <div class="activity-item"><strong>Major / Field of Study:</strong> <span id="dashMajor">Not added</span></div>
+    <div class="activity-item"><strong>Work Experience:</strong> <span id="dashExperience">Not added</span></div>
+    <div class="activity-item"><strong>Skills:</strong> <span id="dashSkills">No skills added</span></div>
+    <div class="activity-item"><strong>Preferred Location:</strong> <span id="dashLocation">Not added</span></div>
+  </div>
+</section>
+
+<section id="profile" class="page">
+  <div class="section-heading">
+    <h2>Candidate Profile Enhancement</h2>
+    <p>These profile fields improve matching accuracy between candidates and job descriptions.</p>
+  </div>
+
+  <div class="form-card wide">
+    <div class="form-grid">
+      <div>
+        <label>Full Name</label>
+        <input id="profileName" type="text" placeholder="Enter full name">
+      </div>
+
+      <div>
+        <label>Contact Information</label>
+        <input id="profileContact" type="text" placeholder="Email or phone number">
+      </div>
+
+      <div>
+        <label>Education</label>
+        <input id="profileEducation" type="text" placeholder="Bachelor of Computer Science">
+      </div>
+
+      <div>
+        <label>Major / Field of Study</label>
+        <input id="profileMajor" type="text" placeholder="Computer Science / Software Development">
+      </div>
+
+      <div>
+        <label>Work Experience</label>
+        <input id="profileExperience" type="text" placeholder="1 year internship / part-time IT work">
+      </div>
+
+      <div>
+        <label>Skills</label>
+        <input id="profileSkills" type="text" placeholder="HTML, CSS, JavaScript, Python">
+      </div>
+
+      <div>
+        <label>Preferred Working Mode</label>
+        <select id="profileWorkMode">
+          <option value="">Select working mode</option>
+          <option>Remote</option>
+          <option>On-site</option>
+          <option>Hybrid</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Preferred Location</label>
+        <input id="profileLocation" type="text" placeholder="Sydney / Wollongong">
+      </div>
+    </div>
+
+    <button class="primary" onclick="saveProfile()">Save Profile</button>
+  </div>
+</section>
+
+<section id="membership" class="page">
+  <div class="section-heading">
+    <h2>Membership Plans</h2>
+    <p>Membership controls how many job recommendations the candidate can access.</p>
+  </div>
+
+  <div class="plan-grid">
+    <div class="plan-card" id="freePlanCard">
+      <span class="plan-label">Free</span>
+      <h3>Free Plan</h3>
+      <p>Suitable for candidates who want basic recommendation access.</p>
+      <h2>Top 10</h2>
+      <ul>
+        <li>Top 10 recommended jobs</li>
+        <li>Basic keyword search</li>
+        <li>Candidate profile management</li>
+      </ul>
+      <button class="secondary" onclick="downgradeMembership()">Switch to Free Plan</button>
+    </div>
+
+    <div class="plan-card premium" id="premiumPlanCard">
+      <span class="plan-label premium-label">Premium</span>
+      <h3>Premium Plan</h3>
+      <p>Designed for users who need unlimited job recommendation access.</p>
+      <h2>Unlimited</h2>
+      <ul>
+        <li>Unlimited recommended jobs</li>
+        <li>Advanced search and filter access</li>
+        <li>Better matching visibility</li>
+      </ul>
+      <button class="primary" id="premiumButton" onclick="openPaymentModal()">Upgrade to Premium</button>
+    </div>
+  </div>
+</section>
+
+<section id="search" class="page">
+  <div class="section-heading">
+    <h2>Search & Filter Jobs</h2>
+    <p>Supports keyword search, filters, keyword + filter and typo-friendly fuzzy search.</p>
+  </div>
+
+  <div class="search-panel">
+    <div>
+      <label>Keyword Search</label>
+      <input id="searchKeyword" type="text" placeholder="Try: sofware enginer">
+    </div>
+
+    <div>
+      <label>Location</label>
+      <select id="searchLocation">
+        <option value="">Any Location</option>
+        <option>Sydney</option>
+        <option>Melbourne</option>
+        <option>Wollongong</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Work Mode</label>
+      <select id="searchWorkMode">
+        <option value="">Any Mode</option>
+        <option>Remote</option>
+        <option>Hybrid</option>
+        <option>On-site</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Experience Level</label>
+      <select id="searchExperience">
+        <option value="">Any Level</option>
+        <option>Entry Level</option>
+        <option>Mid Level</option>
+        <option>Senior Level</option>
+      </select>
+    </div>
+
+    <button class="primary" onclick="searchJobs()">Search Jobs</button>
+  </div>
+
+  <div class="content-card">
+    <h3>Search Results</h3>
+    <p class="muted" id="searchMessage">Enter a keyword or filter to view matching jobs.</p>
+    <div id="searchResults" class="job-list"></div>
+  </div>
+</section>
+
+<section id="recommendations" class="page">
+  <div class="section-heading">
+    <h2>Recommended Jobs</h2>
+    <p id="recommendationText">Recommendations are generated based on profile skills, location and work mode.</p>
+  </div>
+
+  <div id="recommendationList" class="job-list"></div>
+</section>
+
+<section id="applications" class="page">
+  <div class="section-heading">
+    <h2>My Applications</h2>
+    <p>Track jobs that you have applied for.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>Applied Jobs</h3>
+    <div id="applicationsList" class="job-list">
+      <p class="muted">No applications submitted yet.</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="employerDashboard" class="page">
+  <div class="section-heading">
+    <h2>Employer Dashboard</h2>
+    <p>Employer tools support company profiles, job posting, candidate search and candidate recommendations.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p>Company Profile</p>
+      <h3 id="empProfileStatus">0%</h3>
+      <span>Based on completed employer fields</span>
+    </div>
+    <div class="stat-card">
+      <p>Posted Jobs</p>
+      <h3 id="empPostedCount">0</h3>
+      <span>Jobs created by employer</span>
+    </div>
+    <div class="stat-card">
+      <p>Candidate Recommendations</p>
+      <h3 id="empRecommendationLimit">10</h3>
+      <span>Free employers see Top 10 candidates</span>
+    </div>
+    <div class="stat-card">
+      <p>Membership</p>
+      <h3 id="empMembershipStatus">Free</h3>
+      <span id="empMembershipNote">Upgrade for unlimited candidates</span>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Employer Summary</h3>
+    <div class="activity-item"><strong>Company Name:</strong> <span id="empDashCompany">Not added</span></div>
+    <div class="activity-item"><strong>Industry:</strong> <span id="empDashIndustry">Not added</span></div>
+    <div class="activity-item"><strong>Contact:</strong> <span id="empDashContact">Not added</span></div>
+    <div class="activity-item"><strong>Location:</strong> <span id="empDashLocation">Not added</span></div>
+  </div>
+</section>
+
+<section id="employerProfile" class="page">
+  <div class="section-heading">
+    <h2>Employer Profile</h2>
+    <p>Company details are used when publishing jobs and searching for suitable candidates.</p>
+  </div>
+
+  <div class="form-card wide">
+    <div class="form-grid">
+      <div>
+        <label>Company Name</label>
+        <input id="empCompanyName" type="text" placeholder="Enter company name">
+      </div>
+      <div>
+        <label>Industry</label>
+        <input id="empIndustry" type="text" placeholder="Technology / Finance / Education">
+      </div>
+      <div>
+        <label>Company Contact</label>
+        <input id="empContact" type="text" placeholder="Email or phone number">
+      </div>
+      <div>
+        <label>Company Location</label>
+        <input id="empLocation" type="text" placeholder="Sydney / Wollongong">
+      </div>
+    </div>
+    <button class="primary" onclick="saveEmployerProfile()">Save Employer Profile</button>
+  </div>
+
+  <div class="plan-grid employer-plan-space">
+    <div class="plan-card">
+      <span class="plan-label">Employer Free</span>
+      <h3>Basic Employer Access</h3>
+      <p>Suitable for companies that only need limited candidate recommendations.</p>
+      <h2>Top 10</h2>
+      <ul>
+        <li>Post jobs</li>
+        <li>Search candidate profiles</li>
+        <li>Top 10 recommended candidates</li>
+      </ul>
+      <button class="secondary" onclick="downgradeEmployerMembership()">Switch to Free</button>
+    </div>
+
+    <div class="plan-card premium" id="empPremiumPlanCard">
+      <span class="plan-label premium-label">Employer Premium</span>
+      <h3>Premium Employer Access</h3>
+      <p>Designed for employers who need unlimited candidate recommendation access.</p>
+      <h2>Unlimited</h2>
+      <ul>
+        <li>Unlimited recommended candidates</li>
+        <li>Advanced candidate search</li>
+        <li>Better recruitment visibility</li>
+      </ul>
+      <button class="primary" id="empPremiumButton" onclick="upgradeEmployerMembership()">Activate Employer Premium</button>
+    </div>
+  </div>
+</section>
+
+<section id="postJob" class="page">
+  <div class="section-heading">
+    <h2>Create Job Posting</h2>
+    <p>Employers can publish job descriptions with required skills, education, experience, work mode and location.</p>
+  </div>
+
+  <div class="form-card wide">
+    <div class="form-grid">
+      <div>
+        <label>Job Title</label>
+        <input id="jobTitle" type="text" placeholder="Software Engineer">
+      </div>
+      <div>
+        <label>Company Name</label>
+        <input id="jobCompany" type="text" placeholder="Company name">
+      </div>
+      <div>
+        <label>Required Education</label>
+        <input id="jobEducation" type="text" placeholder="Bachelor degree / Diploma">
+      </div>
+      <div>
+        <label>Required Skills</label>
+        <input id="jobSkills" type="text" placeholder="JavaScript, Python, SQL">
+      </div>
+      <div>
+        <label>Years of Experience</label>
+        <input id="jobExperience" type="text" placeholder="0-1 years / 2+ years">
+      </div>
+      <div>
+        <label>Work Mode</label>
+        <select id="jobMode">
+          <option value="">Select work mode</option>
+          <option>Remote</option>
+          <option>On-site</option>
+          <option>Hybrid</option>
+        </select>
+      </div>
+      <div>
+        <label>Job Location</label>
+        <select id="jobLocation">
+          <option value="">Select location</option>
+          <option>Sydney</option>
+          <option>Melbourne</option>
+          <option>Wollongong</option>
+        </select>
+      </div>
+      <div>
+        <label>Experience Level</label>
+        <select id="jobLevel">
+          <option value="">Select level</option>
+          <option>Entry Level</option>
+          <option>Mid Level</option>
+          <option>Senior Level</option>
+        </select>
+      </div>
+    </div>
+
+    <label>Job Description</label>
+    <input id="jobDescription" type="text" placeholder="Describe the role and responsibilities">
+
+    <button class="primary" onclick="saveJobPosting()">Publish Job</button>
+  </div>
+</section>
+
+<section id="postedJobs" class="page">
+  <div class="section-heading">
+    <h2>Posted Jobs</h2>
+    <p>View and manage jobs created through the employer side of the platform.</p>
+  </div>
+  <div class="content-card">
+    <h3>Employer Job Posts</h3>
+    <div id="postedJobsList" class="job-list"></div>
+  </div>
+</section>
+
+<section id="candidateSearch" class="page">
+  <div class="section-heading">
+    <h2>Search & Filter Candidates</h2>
+    <p>Supports keyword search, filters, keyword + filter and typo-friendly fuzzy search across candidate profiles.</p>
+  </div>
+
+  <div class="search-panel candidate-panel">
+    <div>
+      <label>Keyword Search</label>
+      <input id="candidateKeyword" type="text" placeholder="Try: js developer or sofware enginer">
+    </div>
+    <div>
+      <label>Location</label>
+      <select id="candidateLocation">
+        <option value="">Any Location</option>
+        <option>Sydney</option>
+        <option>Melbourne</option>
+        <option>Wollongong</option>
+      </select>
+    </div>
+    <div>
+      <label>Work Mode</label>
+      <select id="candidateMode">
+        <option value="">Any Mode</option>
+        <option>Remote</option>
+        <option>Hybrid</option>
+        <option>On-site</option>
+      </select>
+    </div>
+    <div>
+      <label>Education</label>
+      <input id="candidateEducation" type="text" placeholder="Bachelor / Diploma">
+    </div>
+    <button class="primary" onclick="searchCandidates()">Search Candidates</button>
+  </div>
+
+  <div class="content-card">
+    <h3>Candidate Search Results</h3>
+    <p class="muted" id="candidateSearchMessage">Enter a keyword or filter to view matching candidates.</p>
+    <div id="candidateSearchResults" class="job-list"></div>
+  </div>
+</section>
+
+<section id="candidateRecommendations" class="page">
+  <div class="section-heading">
+    <h2>Recommended Candidates</h2>
+    <p id="candidateRecommendationText">Recommendations are generated by matching candidate skills, location and work mode with employer job requirements.</p>
+  </div>
+  <div id="candidateRecommendationList" class="job-list"></div>
+</section>
+
+<section id="adminDashboard" class="page">
+  <div class="section-heading">
+    <h2>Administrator Dashboard</h2>
+    <p>Admin tools monitor users, job postings, applications and membership activity.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p>Total Candidates</p>
+      <h3 id="adminCandidateCount">0</h3>
+      <span>Candidate profiles in the system</span>
+    </div>
+    <div class="stat-card">
+      <p>Total Employers</p>
+      <h3 id="adminEmployerCount">0</h3>
+      <span>Employer profiles in the system</span>
+    </div>
+    <div class="stat-card">
+      <p>Total Jobs</p>
+      <h3 id="adminJobCount">0</h3>
+      <span>Default and employer-created jobs</span>
+    </div>
+    <div class="stat-card">
+      <p>Total Applications</p>
+      <h3 id="adminApplicationCount">0</h3>
+      <span>Submitted applications</span>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>System Usage Summary</h3>
+    <div id="adminSummaryList" class="job-list"></div>
+  </div>
+</section>
+
+<section id="manageUsers" class="page">
+  <div class="section-heading">
+    <h2>Manage Users</h2>
+    <p>Administrators can review candidate and employer accounts and remove inactive demo records.</p>
+  </div>
+  <div class="content-card">
+    <h3>User Accounts</h3>
+    <div id="manageUsersList" class="job-list"></div>
+  </div>
+</section>
+
+<section id="manageJobs" class="page">
+  <div class="section-heading">
+    <h2>Manage Job Posts</h2>
+    <p>Administrators can review all job posts and remove employer-created jobs when required.</p>
+  </div>
+  <div class="content-card">
+    <h3>All Job Posts</h3>
+    <div id="manageJobsList" class="job-list"></div>
+  </div>
+</section>
+
+</main>
+
+<div id="paymentModal" class="payment-modal">
+  <div class="payment-box">
+    <h2>Premium Membership Payment</h2>
+    <p class="muted">Enter payment details to activate unlimited recommendations.</p>
+
+    <label>Cardholder Name</label>
+    <input id="cardName" type="text" placeholder="Enter name on card">
+
+    <label>Card Number</label>
+    <input id="cardNumber" type="text" placeholder="1234567812345678" maxlength="16">
+
+    <div class="payment-grid">
+      <div>
+        <label>Expiry Date</label>
+        <input id="expiryDate" type="text" placeholder="MM/YY" maxlength="5">
+      </div>
+
+      <div>
+        <label>CVV</label>
+        <input id="cvv" type="password" placeholder="123" maxlength="3">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="primary" onclick="processPayment()">Pay $9.99 & Upgrade</button>
+      <button class="secondary" onclick="closePaymentModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
